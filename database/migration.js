@@ -1,4 +1,5 @@
-const { db } = require("./db");
+require('dotenv').config();
+const { db } = require('./db');
 
 const dropTableQuery = `
     DROP TABLE IF EXISTS reports, chat_message, chat_session, kedinasan, users;
@@ -72,10 +73,10 @@ function runMigrationAndSeed() {
   // Menjalankan query untuk menghapus tabel
   db.query(dropTableQuery, (err, result) => {
     if (err) {
-      console.error("Failed to drop the tables:", err.message);
+      console.error('Failed to drop the tables:', err.message);
       return;
     }
-    console.log("Tables dropped successfully.");
+    console.log('Tables dropped successfully.');
 
     // Buat tabel 'users' terlebih dahulu
     db.query(createUsersTableQuery, (err, result) => {
@@ -96,10 +97,7 @@ function runMigrationAndSeed() {
         // Buat tabel 'chat_session'
         db.query(createChatSessionTableQuery, (err, result) => {
           if (err) {
-            console.error(
-              "Failed to create the 'chat_session' table:",
-              err.message
-            );
+            console.error("Failed to create the 'chat_session' table:", err.message);
             return;
           }
           console.log("Table 'chat_session' created successfully.");
@@ -107,10 +105,7 @@ function runMigrationAndSeed() {
           // Buat tabel 'chat_message'
           db.query(createChatMessageTableQuery, (err, result) => {
             if (err) {
-              console.error(
-                "Failed to create the 'chat_message' table:",
-                err.message
-              );
+              console.error("Failed to create the 'chat_message' table:", err.message);
               return;
             }
             console.log("Table 'chat_message' created successfully.");
@@ -118,10 +113,7 @@ function runMigrationAndSeed() {
             // Buat tabel 'reports' terakhir
             db.query(createReportsTableQuery, (err, result) => {
               if (err) {
-                console.error(
-                  "Failed to create the 'reports' table:",
-                  err.message
-                );
+                console.error("Failed to create the 'reports' table:", err.message);
                 return;
               }
               console.log("Table 'reports' created successfully.");
@@ -129,10 +121,7 @@ function runMigrationAndSeed() {
               // Menjalankan seeder untuk tabel 'kedinasan'
               db.query(insertKedinasanQuery, (err, result) => {
                 if (err) {
-                  console.error(
-                    "Failed to seed 'kedinasan' table:",
-                    err.message
-                  );
+                  console.error("Failed to seed 'kedinasan' table:", err.message);
                   return;
                 }
                 console.log("Table 'kedinasan' seeded successfully.");
@@ -140,12 +129,9 @@ function runMigrationAndSeed() {
                 // Tutup koneksi database setelah semua operasi selesai
                 db.end((err) => {
                   if (err) {
-                    console.error(
-                      "Error closing the database connection:",
-                      err.message
-                    );
+                    console.error('Error closing the database connection:', err.message);
                   } else {
-                    console.log("Database connection closed.");
+                    console.log('Database connection closed.');
                   }
                 });
               });
