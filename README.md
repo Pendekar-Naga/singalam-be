@@ -1,9 +1,9 @@
-# Singalam Frontend - Pendekar Naga Hackathon Project 2025 🐉
+# Singalam Backend - Pendekar Naga Hackathon Project 2025 🐉
 
 ## Team Members
-alkaalvinn - Alka Alvin Fauzi
-Tegarsetyo6 - Tegar Setyo Wicaksono
-nadhirul24 - Nadhirul Fatah Ulhaq
+alkaalvinn - Alka Alvin Fauzi<br>
+Tegarsetyo6 - Tegar Setyo Wicaksono  
+nadhirul24 - Nadhirul Fatah Ulhaq  
 
 ## Introduction
 SINGALAM (Sistem Informasi dan Gerakan Layanan Kota Malang) is an inclusive, AI-powered public complaint platform built to ensure that every citizen—including those with disabilities—can access public services independently and effectively.
@@ -66,10 +66,8 @@ Contributing
 5. Open a Pull Request
 
 ## Languages Used
-JavaScript: 90.3%
-TypeScript: 6.4%
-CSS: 2.6%
-HTML: 0.7%
+JavaScript: 95%
+Nunjucks: 5%
 
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
