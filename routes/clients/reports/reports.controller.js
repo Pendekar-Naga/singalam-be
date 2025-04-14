@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const databaseName = process.env.DB_NAME;
 
 const createReport = async (req, res) => {
-  const { description, kedinasan_id, user_id } = req.body;
+  const { description, kedinasan_id, user_id, topik } = req.body;
 
   if (!description || !kedinasan_id || !user_id) {
     return res.status(400).json({
@@ -17,9 +17,9 @@ const createReport = async (req, res) => {
     const report_id = crypto.randomUUID();
 
     db.query(
-      `INSERT INTO reports (report_id, description, status, kedinasan_id, user_id) 
-         VALUES (?, ?, ?, ?, ?)`,
-      [report_id, description, 'pending', kedinasan_id, user_id]
+      `INSERT INTO reports (report_id, description, status, kedinasan_id, user_id, topik) 
+         VALUES (?, ?, ?, ?, ?, ?)`,
+      [report_id, description, 'pending', kedinasan_id, user_id, topik]
     );
 
     const reportData = {
@@ -27,6 +27,7 @@ const createReport = async (req, res) => {
       description,
       kedinasan_id,
       user_id,
+      topik,
     };
 
     return res.status(201).json({
@@ -97,7 +98,8 @@ const getReportByUserID = async (req, res) => {
         r.status,
         r.created_at,
         r.kedinasan_id,
-        k.nama_dinas
+        k.nama_dinas,
+        r.topik
       FROM ${databaseName}.reports r
       JOIN ${databaseName}.kedinasan k ON r.kedinasan_id = k.kedinasan_id
       WHERE r.user_id = ?
