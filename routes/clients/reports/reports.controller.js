@@ -63,7 +63,7 @@ const getReportByID = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const [report] = await db.query(`SELECT * FROM ${databaseName}.reports WHERE report_id = ?`, [id]);
+    const [report] = await db.promise().query(`SELECT * FROM ${databaseName}.reports WHERE report_id = ?`, [id]);
 
     if (!report.length) {
       return res.status(404).json({
@@ -85,8 +85,42 @@ const getReportByID = async (req, res) => {
   }
 };
 
+const getReportByUserID = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const [reports] = await db.promise().query(
+      `
+      SELECT 
+        r.report_id,
+        r.description,
+        r.status,
+        r.created_at,
+        r.kedinasan_id,
+        k.nama_dinas
+      FROM ${databaseName}.reports r
+      JOIN ${databaseName}.kedinasan k ON r.kedinasan_id = k.kedinasan_id
+      WHERE r.user_id = ?
+    `,
+      [id]
+    );
+
+    return res.status(200).json({
+      status: { code: 200, message: 'Reports fetched successfully' },
+      data: reports,
+    });
+  } catch (error) {
+    console.error('Error in getReportByUserID:', error);
+    return res.status(500).json({
+      status: { code: 500, message: 'An unexpected error occurred' },
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   createReport,
   getAllReports,
   getReportByID,
+  getReportByUserID,
 };
