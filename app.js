@@ -19,7 +19,6 @@ const indexRouter = require('./routes/admin/index/index.router');
 const indexAPIRouter = require('./routes/clients/index/index.router');
 const reportAPIRouter = require('./routes/clients/reports/reports.router');
 const authAPIRouter = require('./routes/clients/auth/auth.router');
-const historyAPIRouter = require('./routes/clients/history/history.controller');
 
 app.use('/', indexRouter);
 
